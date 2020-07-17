@@ -9,10 +9,15 @@
 import SwiftUI
 
 class EmojiMemoryGame {
+    private var model : MemorizeGame<String> = CreateMemorizeGame();
     
-    private var model : MemorizeGame<String> = MemorizeGame<String>(numberOfCards: 2) { (Int) -> String in
-        return "👻"
+    static func CreateMemorizeGame()->MemorizeGame<String> {
+        let cardsCollection = ["👻","🕷","🕸","🎃","🍭","🩸"]
+        return MemorizeGame<String>(numberOfPairCards: cardsCollection.count) { (pairIndex : Int) -> String in
+            cardsCollection[pairIndex]
+        }
     }
+    
     var cards : Array<MemorizeGame<String>.Card> {
         model.cards;
     }

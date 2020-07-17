@@ -10,10 +10,11 @@ import Foundation
 
 struct MemorizeGame<CardContent> {
     var cards : Array<Card>
-    struct Card{
-        var isMatched : Bool
-        var isFaceUp : Bool
+    struct Card : Identifiable{
+        var isMatched : Bool = false
+        var isFaceUp : Bool = false
         var content : CardContent
+        var id : Int
     }
     
     func choose(card: Card){
@@ -21,13 +22,13 @@ struct MemorizeGame<CardContent> {
     }
     
     // MARK: - init
-    init(numberOfCards : Int, cardContentFactory: (Int)->CardContent) {
+    init(numberOfPairCards : Int, cardContentFactory: (Int)->CardContent) {
         cards = Array<Card>();
         
-        for pairIndex in 0..<numberOfCards {
+        for pairIndex in 0..<numberOfPairCards {
             let content = cardContentFactory(pairIndex)
-            cards.append(Card(isMatched: false, isFaceUp: false, content: content))
-            cards.append(Card(isMatched: false, isFaceUp: false, content: content))
+            cards.append(Card(content: content, id: pairIndex * 2))
+            cards.append(Card(content: content, id: pairIndex * 2 + 1))
         }
     }
     
