@@ -17,8 +17,22 @@ struct MemorizeGame<CardContent> {
         var id : Int
     }
     
-    func choose(card: Card){
+    mutating func choose(card: Card){
         print("Card chosen : \(card)")
+        let chosenIndex = Index(of : card)
+        cards[chosenIndex].isFaceUp = !cards[chosenIndex].isFaceUp
+    }
+    
+    func Index(of card: Card)->Int {
+        var found = -1;
+        for index in 0..<cards.count {
+            if cards[index].id == card.id
+            {
+                found = index;
+                break
+            }
+        }
+        return found;
     }
     
     // MARK: - init
