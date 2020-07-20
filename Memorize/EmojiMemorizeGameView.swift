@@ -18,7 +18,6 @@ struct EmojiMemorizeGameView: View {
                 }
             })
         })
-        
         .padding()
         .foregroundColor(Color.orange)
 //        Text("Hello, World!")
@@ -28,18 +27,22 @@ struct EmojiMemorizeGameView: View {
 struct CardView : View {
     var card : MemorizeGame<String>.Card
     var body : some View {
-          ZStack(content: {
-            if card.isFaceUp
-            {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
-                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth : 3)
-                Text(card.content).font(Font.largeTitle)
-            }
-            else
-            {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.orange)
-            }
-        })
+        GeometryReader  { geometry in
+            ZStack(content: {
+                if self.card.isFaceUp
+                {
+                    RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
+                    RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth : 3)
+                    Text(card.content)
+                }
+                else
+                {
+                    RoundedRectangle(cornerRadius: 10.0).fill(Color.orange)
+                }
+            })
+            .font(Font.system(size: min (geometry.size.width, geometry.size.height)))
+        }
+
     }
 }
 
