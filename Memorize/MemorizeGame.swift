@@ -38,11 +38,13 @@ struct MemorizeGame<CardContent> {
     // MARK: - init
     init(numberOfPairCards : Int, cardContentFactory: (Int)->CardContent) {
         cards = Array<Card>();
-        
+        let randomInt = Int.random(in: 0..<6)
         for pairIndex in 0..<numberOfPairCards {
             let content = cardContentFactory(pairIndex)
-            cards.append(Card(content: content, id: pairIndex * 2))
-            cards.append(Card(content: content, id: pairIndex * 2 + 1))
+            for numOfPairs in 0..<randomInt
+            {
+                cards.append(Card(content: content, id: pairIndex * numberOfPairCards + numOfPairs))
+            }
         }
         cards.shuffle()
     }
