@@ -18,7 +18,7 @@ struct EmojiMemorizeGameView: View {
                 self.viewModel.Choose(card: card)
             }
             
-        })
+        }
         .padding()
         .foregroundColor(Color.orange)
 //        Text("Hello, World!")
