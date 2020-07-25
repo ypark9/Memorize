@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct MemorizeGame<CardContent> {
+struct MemorizeGame<CardContent> where CardContent : Equatable{
+    var indexOfCareTheOneTheOnlyFaceUpCard: Int?
     var cards : Array<Card>
     struct Card : Identifiable{
         var isMatched : Bool = false
@@ -18,9 +19,24 @@ struct MemorizeGame<CardContent> {
     }
     
     mutating func choose(card: Card){
-        print("Card chosen : \(card)")
-        let chosenIndex = cards.findFirstMatchIndex(of : card)
-        cards[chosenIndex ?? 0].isFaceUp = !cards[chosenIndex ?? 0].isFaceUp
+        //print("Card chosen : \(card)")
+        if let chosenIndex = cards.findFirstMatchIndex(of : card), !cards[chosenIndex].isFaceUp, !cards[chosenIndex].isMatched{
+            if let potentialMatchedIndex = indexOfCareTheOneTheOnlyFaceUpCard {
+                if cards[chosenIndex].content == cards[potentialMatchedIndex].content{
+                    cards[potentialMatchedIndex].isMatched = true
+                    cards[chosenIndex].isMatched = true
+                }
+                indexOfCareTheOneTheOnlyFaceUpCard = nil
+            }
+                // chosen card(s) is zero or more than 1
+            else {
+                for index in cards.indices {
+                    cards[index].isFaceUp = false
+                }
+                indexOfCareTheOneTheOnlyFaceUpCard = chosenIndex
+            }
+            cards[chosenIndex ].isFaceUp = !cards[chosenIndex ].isFaceUp
+        }
     }
     
     // MARK: - init
