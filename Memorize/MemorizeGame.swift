@@ -10,6 +10,33 @@ import Foundation
 
 struct MemorizeGame<CardContent> where CardContent : Equatable{
     var indexOfCareTheOneTheOnlyFaceUpCard: Int?
+    {
+        get{
+            var cardFaceUpIndices = [Int]()
+            for index in cards.indices {
+                if cards[index].isFaceUp {
+                    cardFaceUpIndices.append(index)
+                }
+            }
+            
+            if cardFaceUpIndices.count == 1 {
+                return cardFaceUpIndices.first
+            }
+            else {
+                return nil
+            }
+        }
+        set{
+            for index in cards.indices {
+                if index == newValue {
+                    cards[index].isFaceUp = true
+                }
+                else {
+                    cards[index].isFaceUp = false
+                }
+            }
+        }
+    }
     var cards : Array<Card>
     struct Card : Identifiable{
         var isMatched : Bool = false
@@ -26,16 +53,13 @@ struct MemorizeGame<CardContent> where CardContent : Equatable{
                     cards[potentialMatchedIndex].isMatched = true
                     cards[chosenIndex].isMatched = true
                 }
+                cards[chosenIndex ].isFaceUp = true
                 indexOfCareTheOneTheOnlyFaceUpCard = nil
             }
                 // chosen card(s) is zero or more than 1
             else {
-                for index in cards.indices {
-                    cards[index].isFaceUp = false
-                }
                 indexOfCareTheOneTheOnlyFaceUpCard = chosenIndex
             }
-            cards[chosenIndex ].isFaceUp = !cards[chosenIndex ].isFaceUp
         }
     }
     
