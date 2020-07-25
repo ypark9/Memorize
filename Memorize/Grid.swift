@@ -17,8 +17,18 @@ struct Grid<Item, ItemView>: View where Item : Identifiable, ItemView : View {
         self.viewForItem = viewForItem;
     }
     var body: some View {
-        ForEach(items){ item in
-            self.viewForItem(item);
+        GeometryReader{ geometry in
+            self.body(layout: GridLayout(itemCount: self.items.count, in: geometry.size))
         }
     }
+    
+    func body(layout : GridLayout)-> some View{
+        ForEach(self.items){ item in
+            self.viewForItem(item)
+                .frame(width: layout.itemSize.width, height: layout.itemSize.height)
+                .position(x: layout.location(ofItemAt: (self.items.findFirstMatchIndex(of: item) ?? 0)).x,
+                        y: layout.location(ofItemAt: (self.items.findFirstMatchIndex(of: item)) ?? 0).y)
+        }
+    }
+    
 }

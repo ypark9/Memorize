@@ -19,26 +19,15 @@ struct MemorizeGame<CardContent> {
     
     mutating func choose(card: Card){
         print("Card chosen : \(card)")
-        let chosenIndex = Index(of : card)
-        cards[chosenIndex].isFaceUp = !cards[chosenIndex].isFaceUp
-    }
-    
-    func Index(of card: Card)->Int {
-        var found = -1;
-        for index in 0..<cards.count {
-            if cards[index].id == card.id
-            {
-                found = index;
-                break
-            }
-        }
-        return found;
+        let chosenIndex = cards.findFirstMatchIndex(of : card)
+        cards[chosenIndex ?? 0].isFaceUp = !cards[chosenIndex ?? 0].isFaceUp
     }
     
     // MARK: - init
     init(numberOfPairCards : Int, cardContentFactory: (Int)->CardContent) {
         cards = Array<Card>();
         let randomInt = Int.random(in: 0..<6)
+        //let randomInt = 2
         for pairIndex in 0..<numberOfPairCards {
             let content = cardContentFactory(pairIndex)
             for numOfPairs in 0..<randomInt

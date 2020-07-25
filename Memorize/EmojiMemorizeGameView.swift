@@ -16,7 +16,7 @@ struct EmojiMemorizeGameView: View {
             card in
             CardView(card: card).onTapGesture {
                 self.viewModel.Choose(card: card)
-            }
+            }.padding(5)
             
         }
         .padding()
