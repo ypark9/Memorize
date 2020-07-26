@@ -12,19 +12,8 @@ struct MemorizeGame<CardContent> where CardContent : Equatable{
     var indexOfCareTheOneTheOnlyFaceUpCard: Int?
     {
         get{
-            var cardFaceUpIndices = [Int]()
-            for index in cards.indices {
-                if cards[index].isFaceUp {
-                    cardFaceUpIndices.append(index)
-                }
-            }
-            
-            if cardFaceUpIndices.count == 1 {
-                return cardFaceUpIndices.first
-            }
-            else {
-                return nil
-            }
+            let cardFaceUpIndices = cards.indices.filter { index in cards[index].isFaceUp }
+            return cardFaceUpIndices.giveTheOneAndOnly()
         }
         set{
             for index in cards.indices {

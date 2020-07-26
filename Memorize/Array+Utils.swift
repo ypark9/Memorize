@@ -20,3 +20,13 @@ extension Array where Element : Identifiable {
         return returnIndex
     }
 }
+
+extension Array {
+    func giveTheOneAndOnly ()-> Element? {
+        var itemToReturn : Element?
+        if self.count == 1 {
+                itemToReturn = first
+        }
+        return itemToReturn
+    }
+}
