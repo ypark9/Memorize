@@ -54,7 +54,6 @@ struct MemorizeGame<CardContent> where CardContent : Equatable{
                     cards[chosenIndex].isMatched = true
                 }
                 cards[chosenIndex ].isFaceUp = true
-                indexOfCareTheOneTheOnlyFaceUpCard = nil
             }
                 // chosen card(s) is zero or more than 1
             else {
