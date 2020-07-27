@@ -11,10 +11,7 @@ import Foundation
 struct MemorizeGame<CardContent> where CardContent : Equatable{
     var indexOfCareTheOneTheOnlyFaceUpCard: Int?
     {
-        get{
-            let cardFaceUpIndices = cards.indices.filter { index in cards[index].isFaceUp }
-            return cardFaceUpIndices.giveTheOneAndOnly()
-        }
+        get{ cards.indices.filter { index in cards[index].isFaceUp }.giveTheOneAndOnly()}
         set{
             for index in cards.indices {
                 if index == newValue {
