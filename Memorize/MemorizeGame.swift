@@ -9,7 +9,7 @@
 import Foundation
 
 struct MemorizeGame<CardContent> where CardContent : Equatable{
-    var indexOfCareTheOneTheOnlyFaceUpCard: Int?
+    private var indexOfCareTheOneTheOnlyFaceUpCard: Int?
     {
         get{ cards.indices.filter { index in cards[index].isFaceUp }.giveTheOneAndOnly()}
         set{
@@ -23,7 +23,7 @@ struct MemorizeGame<CardContent> where CardContent : Equatable{
             }
         }
     }
-    var cards : Array<Card>
+    private(set) var cards : Array<Card>
     struct Card : Identifiable{
         var isMatched : Bool = false
         var isFaceUp : Bool = false

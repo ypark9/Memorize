@@ -45,7 +45,6 @@ struct CardView : View {
             })
                 .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.75))
         }
-
     }
 }
 
