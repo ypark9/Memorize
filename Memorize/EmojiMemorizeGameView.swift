@@ -34,8 +34,9 @@ struct CardView : View {
                 {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth : 3)
-                    //Pie()
-                    Circle().opacity(0.4).padding(5)
+                    Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20))
+                        .opacity(0.4)
+                        .padding(5)
                     Text(self.card.content)
                 }
                 else
