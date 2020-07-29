@@ -34,6 +34,8 @@ struct CardView : View {
                 {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth : 3)
+                    //Pie()
+                    Circle().opacity(0.4).padding(5)
                     Text(self.card.content)
                 }
                 else
@@ -43,13 +45,15 @@ struct CardView : View {
                     }
                 }
             })
-                .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.75))
+                .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.65))
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemorizeGameView(viewModel: EmojiMemoryGame())
+        let game = EmojiMemoryGame()
+        game.Choose(card: game.cards[0])
+        return EmojiMemorizeGameView(viewModel: game)
     }
 }
