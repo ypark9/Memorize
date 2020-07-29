@@ -29,15 +29,15 @@ struct CardView : View {
     var card : MemorizeGame<String>.Card
     var body : some View {
         GeometryReader  { geometry in
-            ZStack(content: {
+            ZStack{
                 Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20))
                     .opacity(0.4)
                     .padding(5)
                 Text(self.card.content)
-            })
-                .modifier(Cardify(isFaceUp: self.card.isFaceUp))
-                .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.65))
-        }
+            }
+            .modifier(Cardify(isFaceUp: self.card.isFaceUp))
+            .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.65))
+    }
     }
 }
 

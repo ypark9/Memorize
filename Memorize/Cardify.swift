@@ -11,7 +11,7 @@ import SwiftUI
 struct Cardify : ViewModifier {
     var isFaceUp : Bool
     func body(content: Content) -> some View {
-        ZStack(content: {
+        ZStack {
             if self.isFaceUp
             {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
@@ -20,10 +20,11 @@ struct Cardify : ViewModifier {
             }
             else
             {
+                RoundedRectangle(cornerRadius: 10.0).fill()
 //                if !self.isMatched {
 //                    RoundedRectangle(cornerRadius: 10.0).fill(Color.orange)
 //                }
             }
-        })
+        }
     }
 }
