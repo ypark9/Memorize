@@ -11,17 +11,22 @@ import SwiftUI
 struct EmojiMemorizeGameView: View {
     @ObservedObject var viewModel : EmojiMemoryGame
     var body: some View {
-        Grid(viewModel.cards)
-        {
-            card in
-            CardView(card: card).onTapGesture {
-                self.viewModel.Choose(card: card)
-            }.padding(5)
-            
+        VStack{
+            Grid(viewModel.cards)
+            {
+                card in
+                CardView(card: card).onTapGesture {
+                    self.viewModel.Choose(card: card)
+                }.padding(5)
+                
+            }
+            .padding()
+            .foregroundColor(Color.orange)
+            Button(action: {
+                self.viewModel.ResetGame()
+            }, label: {Text("New Game")})
         }
-        .padding()
-        .foregroundColor(Color.orange)
-//        Text("Hello, World!")
+        
     }
 }
 
@@ -29,15 +34,19 @@ struct CardView : View {
     var card : MemorizeGame<String>.Card
     var body : some View {
         GeometryReader  { geometry in
-            ZStack{
-                Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20))
-                    .opacity(0.4)
-                    .padding(5)
-                Text(self.card.content)
+            if self.card.isFaceUp || !self.card.isMatched {
+                ZStack{
+                    Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20))
+                        .opacity(0.4)
+                        .padding(5)
+                    Text(self.card.content)
+                    .rotationEffect(Angle.degrees(self.card.isMatched ? 360 : 0))
+                        .animation(self.card.isMatched ? Animation.linear(duration: 1).repeatForever(autoreverses: false) : .default)
+                }
+                .modifier(Cardify(isFaceUp: self.card.isFaceUp))
+                .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.65))
             }
-            .modifier(Cardify(isFaceUp: self.card.isFaceUp))
-            .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.65))
-    }
+        }
     }
 }
 
