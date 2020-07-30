@@ -12,9 +12,10 @@ class EmojiMemoryGame : ObservableObject {
     @Published private var model : MemorizeGame<String> = CreateMemorizeGame();
     
     static func CreateMemorizeGame()->MemorizeGame<String> {
-        let cardsCollection = ["👻","🕷","🕸","🎃","🍭","🩸"]
-        return MemorizeGame<String>(numberOfPairCards: cardsCollection.count) { (pairIndex : Int) -> String in
-            cardsCollection[pairIndex]
+        let cardsCollection = [["👻","🕷","🕸","🎃","🍭","🩸"],["😺","😸","😹","😻","🙀"],["🐋","🐳","🐟","🐠","🐡"]]
+        let randomInt = Int.random(in: 0..<3)
+        return MemorizeGame<String>(numberOfPairCards: cardsCollection[randomInt].count) { (pairIndex : Int) -> String in
+            cardsCollection[randomInt][pairIndex]
         }
     }
     var cards : Array<MemorizeGame<String>.Card> {
